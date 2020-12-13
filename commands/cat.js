@@ -21,10 +21,7 @@ module.exports = {
         });
         // @ts-ignore
         await fetch(url + params)
-            .then(response => {
-                if (response.ok) response.json();
-                if (!response.ok) return;
-            })
+            .then(response => response.json())
             .then(json => {
                 const cat = json[0];
                 const breed = cat.breeds[0];
@@ -34,8 +31,13 @@ module.exports = {
                     .setColor('#0099ff')
                     .setTitle(breed.name)
                     .setURL(breed.wikipedia_url)
-                    .setDescription(description)
                     .setImage(cat.url)
+                    .setDescription(description)
+                    .addFields(
+                        { name: 'Weight:', value: `${breed.weight["metric"]} kg\n ${breed.weight["imperial"]} lbs`, inline: true },
+                        { name: 'Lifespan:', value: `${breed.life_span} years`, inline: true },
+                        { name: 'Origin:', value: breed.origin, inline: true }
+                    )
                     .setFooter(`Image provided by thecatapi.com, thanks buddies!`);
 
                 message.channel.send(embed);

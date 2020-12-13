@@ -32,10 +32,15 @@ module.exports = {
                     .setColor('#0099ff')
                     .setTitle(breed.name)
                     .setURL(breed.wikipedia_url)
-                    .setDescription(description)
                     .setImage(dog.url)
+                    .setDescription(description)
+                    .addFields(
+                        { name: 'Weight:', value: `${breed.weight["metric"]} kg\n ${breed.weight["imperial"]} lbs`, inline: true },
+                        { name: 'Height:', value: `${breed.height["metric"]} cm\n ${breed.height["imperial"]} inches`, inline: true },
+                        { name: 'Lifespan:', value: `${breed.life_span}`, inline: true },
+                        { name: 'Bred for:', value: `${breed.bred_for}`, inline: true }
+                    )
                     .setFooter(`Image provided by thedogapi.com, thanks buddies!`);
-
                 message.channel.send(embed);
             }).catch(error => {
                 message.channel.send(error.message);

@@ -5,7 +5,7 @@ module.exports = {
     description: 'It cancels people!',
     usage: '<user>',
     execute(message, args) {
-        const gif = "https://media1.tenor.com/images/b5bdca61b28524e045d3aa3c124651ea/tenor.gif";
+        const gif = "https://media1.tenor.com/images/defaced389aa7815c39752cddf048d9a/tenor.gif";
         let mentions = [];
         let embed = {
             color: 0x0099ff,

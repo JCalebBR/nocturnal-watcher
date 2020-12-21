@@ -4,8 +4,11 @@ const Discord = require('discord.js');
 const { token, prefix } = require('./config.json');
 const client = new Discord.Client();
 
+const path = require('path');
+const dirPath = path.resolve(__dirname, './commands');
+
 client.commands = new Discord.Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync(dirPath).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);

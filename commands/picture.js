@@ -1,25 +1,51 @@
+const fetch = require('node-fetch');
 module.exports = {
     name: 'picture',
-    aliases: ['random-pic', 'pic'],
-    args: true,
+    aliases: ['randompic', 'pic'],
+    args: false,
     guildOnly: true,
     cooldown: 5,
     description: 'Description',
     usage: '<width> <height> or <resolution> (for square images)',
     async execute(message, args) {
-        const fetch = require('node-fetch');
-        let url = ``;
-        if (args.length > 1) {
-            if (isNaN(args[1])) { return; }
-            url += `https://picsum.photos/${args[0]}/${args[1]}`;
-        } else {
-            url += `https://picsum.photos/${args[0]}`;
+        if (args.length > 2) {
+            message.reply('Please provide up to 2 arguments (width x height)');
+            return;
+        } else if (args[0] > 5000 || args[1] > 5000) {
+            message.reply('Please provide a valid size ranging from 1 to 5000 px');
+            return;
         }
+
+        let title;
+        let url = 'https://picsum.photos/';
+
+        if (args.length > 1) {
+            url += args.join('/');
+            title = args.join('x');
+        }
+        else if (!args.length) {
+            url += "0/0";
+            title = "random sized";
+        }
+        else {
+            url += args.join('/');
+            title = `${args[0]}x${args[0]}`;
+        }
+
+        let embed = {
+            color: 0x0099ff,
+            title: `Here's your ${title} picture:`,
+            image: {
+                url: ''
+            },
+            footer: {
+                text: "picture provided by picsum.photos, thanks buddies!"
+            }
+        };
         // @ts-ignore
         await fetch(url).then(response => {
-            // console.log(response.headers.get('Location'));
-            // console.log(response.headers.raw());
-            message.channel.send(response.url);
+            embed.image.url = response.url;
+            message.channel.send({ embed: embed });
         }).catch(error => {
             message.channel.send(error.message);
         });

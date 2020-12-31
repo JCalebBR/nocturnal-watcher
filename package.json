@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "bufferutil": "^4.0.2",
+    "discord-auditlog": "^2.2.3",
     "discord.js": "^12.5.1",
+    "discord.js-menu": "^2.3.0",
     "erlpack": "github:discord/erlpack",
     "node-fetch": "^2.6.1",
     "optionator": "^0.9.1",

@@ -1,22 +1,22 @@
 const { gifs } = require('../config.json');
 module.exports = {
-    name: 'ally',
-    aliases: ['allysha', 'bish'],
+    name: 'safe',
     args: false,
     guildOnly: true,
-    description: '',
+    description: 'It protects your neck!',
     usage: '',
     execute(message) {
         const embed = {
             color: 0x0099ff,
-            title: gifs.ally.message,
+            title: gifs.safe.message,
             image: {
-                url: gifs.ally.url
+                url: gifs.safe.url
             },
             footer: {
-                text: "\nmeme brought to you by Caleb#5104"
+                text: "meme brought to you by Caleb#5104"
             }
         };
         message.channel.send({ embed: embed });
     }
 };
+

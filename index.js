@@ -3,7 +3,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const { token, prefix } = require('./config.json');
 const client = new Discord.Client();
-
+const Auditlog = require("discord-auditlog");
 const path = require('path');
 const dirPath = path.resolve(__dirname, './commands');
 
@@ -50,7 +50,6 @@ client.on('message', async message => {
     if (command.admin) {
         if (!message.member.roles.cache.find(r => r.name === "Moderators")) {
             message.channel.send(`I'm sorry ${message.author}, I'm afraid I can't do that\nYou don't have the necessary role.`);
-            message.channel.send("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/HAL9000.svg/1200px-HAL9000.svg.png");
         }
     }
     // Checks if the command is meant to be used only in servers
@@ -62,7 +61,7 @@ client.on('message', async message => {
         let reply = `You didn't provide any arguments!`;
         // If it has a usage guide, send it
         if (command.usage) {
-            reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+            reply += `\nThe proper usage would be: \`${prefix}${commandName} ${command.usage}\``;
         }
 
         return message.reply(reply);
@@ -89,9 +88,20 @@ client.on('message', async message => {
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
     try {
-        command.execute(message, args);
+        command.execute(message, args, commandName);
     } catch (error) {
         console.error(error);
         message.reply(`I tried so hard... but in the end... I couldn't do what you asked.`);
+    }
+});
+
+Auditlog(client, {
+    "384935929791512577": {
+        auditlog: "audit-logs",
+        movement: "audit-logs",
+        auditmsg: "audit-logs", // Default to fasle, recommend to set a channel
+        voice: false, // Set a Channel name if you want it
+        trackroles: true, // Default is False
+        // excludedroles: ['671004697850544111', '671004697850544112']  // This is an OPTIONAL array of Roles ID that won't be tracked
     }
 });

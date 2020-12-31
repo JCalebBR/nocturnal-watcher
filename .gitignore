@@ -125,3 +125,6 @@ config.json
 workspace.code-workspace
 nik goes for bass.gif:Zone.Identifier
 nik goes for bass.gif
+commands/list.js
+bands.json
+commands/user.js

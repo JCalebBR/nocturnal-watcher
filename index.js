@@ -3,7 +3,6 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const { token, prefix } = require('./config.json');
 const client = new Discord.Client();
-const Auditlog = require("discord-auditlog");
 const path = require('path');
 const dirPath = path.resolve(__dirname, './commands');
 
@@ -92,16 +91,5 @@ client.on('message', async message => {
     } catch (error) {
         console.error(error);
         message.reply(`I tried so hard... but in the end... I couldn't do what you asked.`);
-    }
-});
-
-Auditlog(client, {
-    "384935929791512577": {
-        auditlog: "audit-logs",
-        movement: "audit-logs",
-        auditmsg: "audit-logs", // Default to fasle, recommend to set a channel
-        voice: false, // Set a Channel name if you want it
-        trackroles: true, // Default is False
-        // excludedroles: ['671004697850544111', '671004697850544112']  // This is an OPTIONAL array of Roles ID that won't be tracked
     }
 });

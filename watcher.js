@@ -1,13 +1,13 @@
-const fs = require('fs');
+const fs = require("fs");
 
-const Discord = require('discord.js');
-const { token, prefix } = require('./config.json');
+const Discord = require("discord.js");
+const { token, prefix } = require("./config.json");
 const client = new Discord.Client();
-const path = require('path');
-const dirPath = path.resolve(__dirname, './commands');
+const path = require("path");
+const dirPath = path.resolve(__dirname, "./commands");
 
 client.commands = new Discord.Collection();
-const commandFiles = fs.readdirSync(dirPath).filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync(dirPath).filter(file => file.endsWith(".js"));
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
@@ -20,10 +20,10 @@ for (const file of commandFiles) {
 const cooldowns = new Discord.Collection();
 
 // Ready
-client.once('ready', () => {
-    console.log('Ready!');
+client.once("ready", () => {
+    console.log("Ready!");
     // Activity
-    client.user.setActivity('the memeland', { type: 'WATCHING' })
+    client.user.setActivity("the memeland", { type: "WATCHING" })
         .then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
         .catch(console.error);
 });
@@ -32,8 +32,8 @@ client.once('ready', () => {
 client.login(token);
 
 // Commands
-client.on('message', async message => {
-    // Checks if message starts with a prefix or if it's not from another bot
+client.on("message", async message => {
+    // Checks if message starts with a prefix or if it"s not from another bot
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     // Split args
@@ -52,12 +52,12 @@ client.on('message', async message => {
         }
     }
     // Checks if the command is meant to be used only in servers
-    if (command.guildOnly && message.channel.type === 'dm') {
-        return message.reply('I can\'t execute that command inside DMs!');
+    if (command.guildOnly && message.channel.type === "dm") {
+        return message.reply("I can't execute that command inside DMs!");
     }
     // Checks if the command needs arguments
     if (command.args && !args.length) {
-        let reply = `You didn't provide any arguments!`;
+        let reply = "You didn't provide any arguments!";
         // If it has a usage guide, send it
         if (command.usage) {
             reply += `\nThe proper usage would be: \`${prefix}${commandName} ${command.usage}\``;

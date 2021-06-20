@@ -4,6 +4,7 @@ const Discord = require("discord.js");
 const { token, prefix } = require("./config.json");
 const client = new Discord.Client();
 const path = require("path");
+const { match } = require("assert");
 const dirPath = path.resolve(__dirname, "./commands");
 
 client.commands = new Discord.Collection();
@@ -34,7 +35,27 @@ client.login(token);
 // Commands
 client.on("message", async message => {
     // Checks if message starts with a prefix or if it"s not from another bot
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if (message.author.bot) return;
+
+    if (!message.content.startsWith(prefix)) {
+        let fahrenheit = /([+-]?\d+(\.\d+)*)\s?[°º]?([Ff])[^a-zA-Z0-9]/g;
+        let strip = /\D+/g;
+        let reply = "";
+        message.content += ".";
+        let match = message.content.match(fahrenheit);
+        if (match !== null) {
+            match.forEach((value) => {
+                if (value !== null) {
+                    let fvalue = value.replace(strip, '');
+                    let number = parseFloat(fvalue);
+                    number = (number - 32) * 5 / 9;
+                    reply += `${fvalue}ºF -> ${number.toFixed(1)}ºC\n`;
+                }
+            });
+            message.reply(reply);
+        }
+        return;
+    }
 
     // Split args
     const args = message.content.slice(prefix.length).trim().split(/ +/);

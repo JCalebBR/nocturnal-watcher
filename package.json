@@ -1,14 +1,13 @@
 {
   "dependencies": {
-    "bufferutil": "^4.0.2",
     "discord-auditlog": "^2.2.3",
+    "discord-reply": "^0.1.2",
     "discord.js": "^12.5.1",
     "discord.js-menu": "^2.3.0",
     "erlpack": "github:discord/erlpack",
     "node-fetch": "^2.6.1",
     "optionator": "^0.9.1",
-    "spotify-web-api-node": "^5.0.2",
-    "utf-8-validate": "^5.0.3"
+    "spotify-web-api-node": "^5.0.2"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.2",

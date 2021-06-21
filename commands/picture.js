@@ -5,8 +5,9 @@ module.exports = {
     args: false,
     guildOnly: true,
     cooldown: 5,
-    description: 'Description',
-    usage: '<width> <height> or <resolution> (for square images)',
+    description: 'Returns a random picture, according to input',
+    usage: '<width> <height> | <resolution> for square images',
+    tag: 'Random',
     async execute(message, args) {
         if (args.length > 2) {
             message.reply('Please provide up to 2 arguments (width x height)');
@@ -45,9 +46,9 @@ module.exports = {
         // @ts-ignore
         await fetch(url).then(response => {
             embed.image.url = response.url;
-            message.channel.send({ embed: embed });
+            message.lineReply({ embed: embed });
         }).catch(error => {
-            message.channel.send(error.message);
+            message.lineReply(error.message);
         });
     }
 };

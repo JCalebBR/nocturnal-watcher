@@ -2,9 +2,10 @@ module.exports = {
     name: 'prune',
     args: true,
     guildOnly: true,
-    description: 'Delete messages',
+    description: 'Deletes messages',
     usage: '<1-99>',
     admin: true,
+    tag: 'Admin',
     execute(message, args) {
         const amount = parseInt(args[0]) + 1;
 
@@ -12,7 +13,7 @@ module.exports = {
         // @ts-ignore
         message.channel.bulkDelete(amount, true).catch(error => {
             console.log(error);
-            message.channel.send(`I tried so hard... but in the end... I couldn't do what you asked.`);
+            message.lineReply(`I tried so hard... but in the end... I couldn't do what you asked.`);
         });
     }
 };

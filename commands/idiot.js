@@ -1,11 +1,14 @@
 const { pngs } = require('../config.json');
+
 module.exports = {
     name: 'idiot',
     aliases: ['trapt'],
     args: false,
     guildOnly: true,
-    description: '',
+    cooldown: 0,
+    description: 'Returns a random trapt meme.',
     usage: '',
+    tag: 'Fun',
     execute(message) {
         const item = Math.floor(Math.random() * pngs.trapt.length);
         const embed = {
@@ -18,6 +21,6 @@ module.exports = {
                 text: "\nmeme brought to you by Caleb#5104, acquired from images.google.com"
             }
         };
-        message.channel.send({ embed: embed });
+        message.lineReply({ embed: embed });
     }
 };

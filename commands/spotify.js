@@ -7,8 +7,9 @@ module.exports = {
     aliases: ["s", "spoti"],
     args: true,
     guildOnly: true,
-    description: "",
-    usage: "",
+    description: "Spotify playlist or artist search",
+    usage: "<[playlist (name | id) | artist (name)]>",
+    tag: 'Spotify',
     async execute(message, args) {
         let swapi = new SpotifyWebApi({
             clientId: apikeys.spotify.clientId,
@@ -19,7 +20,7 @@ module.exports = {
             .then(data => {
                 swapi.setAccessToken(data.body["access_token"]);
             }, err => {
-                message.channel.send(err);
+                message.lineReply(err);
             });
 
         if (args[0] === "playlist" || args[0] === "p") {
@@ -34,7 +35,7 @@ module.exports = {
                         let embed = await getPlaylistByID(data.body.playlists.items[index].id, swapi);
                         embed.footer.text += `\nResult ${index + 1} of ${data.body.playlists.items.length}`;
                         results.push(embed);
-                        message.channel.send({ embed: embed })
+                        message.lineReply({ embed: embed })
                             .then(sentEmbed => {
                                 const filter = (reaction, user) => {
                                     return ["⬅", "➡", "⏹️"].includes(reaction.emoji.name) && user.id === message.author.id;

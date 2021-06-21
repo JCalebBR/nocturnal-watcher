@@ -7,8 +7,9 @@ module.exports = {
     aliases: ['bangers'],
     args: false,
     guildOnly: true,
-    description: '',
+    description: "Nik Nocturnal's Official Modern Metal playlist shortcut",
     usage: '',
+    tag: 'Spotify',
     execute(message) {
         let swapi = new SpotifyWebApi({
             clientId: apikeys.spotify.clientId,
@@ -24,7 +25,7 @@ module.exports = {
             })
             .then(async () => {
                 let embed = await getPlaylistByID("4m2FtiQKqtkzLIVOGtZPDY", swapi);
-                message.channel.send({ embed: embed });
+                message.lineReply({ embed: embed });
             });
     }
 };

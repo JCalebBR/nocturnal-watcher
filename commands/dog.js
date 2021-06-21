@@ -9,6 +9,7 @@ module.exports = {
     cooldown: 5,
     description: 'Gets a random dog picture from thedogapi.com',
     usage: '',
+    tag: 'Random',
     async execute(message) {
         const fetch = require('node-fetch');
         const url = `https://api.thedogapi.com/v1/images/search?`;
@@ -41,9 +42,9 @@ module.exports = {
                         { name: 'Bred for:', value: `${breed.bred_for}`, inline: true }
                     )
                     .setFooter(`Image provided by thedogapi.com, thanks buddies!`);
-                message.channel.send(embed);
+                message.lineReply(embed);
             }).catch(error => {
-                message.channel.send(error.message);
+                message.lineReply(error.message);
             });
     }
 };

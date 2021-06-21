@@ -5,6 +5,7 @@ module.exports = {
     guildOnly: true,
     description: 'It protects your neck!',
     usage: '',
+    tag: 'Fun',
     execute(message) {
         const embed = {
             color: 0x0099ff,
@@ -16,7 +17,7 @@ module.exports = {
                 text: "meme brought to you by Caleb#5104"
             }
         };
-        message.channel.send({ embed: embed });
+        message.lineReply({ embed: embed });
     }
 };
 

@@ -4,8 +4,9 @@ module.exports = {
     aliases: ['cancel', 'bonk'],
     args: true,
     guildOnly: true,
-    description: 'It bans, cancels or bonks people!',
-    usage: '<user>',
+    description: 'Bans, cancels or bonks people!',
+    usage: '<@user(s)> | <text>',
+    tag: 'Fun',
     execute(message, args, command) {
         let mentions = [];
         let embed = {
@@ -23,12 +24,12 @@ module.exports = {
             });
 
             if (mentions.includes('Caleb')) {
-                message.reply(`I'm sorry, I can't ${command} ${mentions[mentions.indexOf('Caleb')]}, he is like a father to me`);
-                return;
+                embed.title = `I'm sorry, I can't ${command} ${mentions[mentions.indexOf('Caleb')]}, he is like a father to me`;
+                return message.lineReply({ embed: embed });
             } else if (mentions.includes('Nocturnal Watcher')) {
-                message.channel.send(`I'm sorry ${message.author}, I'm afraid I can't do that.`);
-                message.channel.send(`${pngs.hal}`);
-                return;
+                embed.title = `I'm sorry, I'm afraid I can't do that.`;
+                embed.image.url = `${pngs.hal}`;
+                return message.lineReply({ embed: embed });
             } else {
                 embed.title = mentions.join(', ');
                 if (message.mentions.users.size > 1) embed.title += " have ";
@@ -41,7 +42,7 @@ module.exports = {
         }
         embed.image.url += gifs[`${command}`].url;
         embed.title += gifs[`${command}`].message;
-        message.channel.send({ embed: embed });
+        message.lineReply({ embed: embed });
     }
 };
 

@@ -2,8 +2,11 @@ const fs = require("fs");
 
 const Discord = require("discord.js");
 const { token, prefix } = require("./config.json");
+// @ts-ignore
+require('discord-reply');
 const client = new Discord.Client();
 const path = require("path");
+// @ts-ignore
 const { match } = require("assert");
 const dirPath = path.resolve(__dirname, "./commands");
 
@@ -39,12 +42,14 @@ client.on("message", async message => {
 
     if (!message.content.startsWith(prefix)) {
         let fahrenheit = /([+-]?\d+(\.\d+)*)\s?[°º]?([Ff])[^a-zA-Z0-9]/g;
-        let strip = /\D+/g;
+        let celsius = /([+-]?\d+(\.\d+)*)\s?[°º]?([Cc])[^a-zA-Z0-9]/g;
+        let strip = /[^0-9+-]+/g;
         let reply = "";
         message.content += ".";
-        let match = message.content.match(fahrenheit);
-        if (match !== null) {
-            match.forEach((value) => {
+
+        let matchF = message.content.match(fahrenheit);
+        if (matchF !== null) {
+            matchF.forEach((value) => {
                 if (value !== null) {
                     let fvalue = value.replace(strip, '');
                     let number = parseFloat(fvalue);
@@ -52,8 +57,21 @@ client.on("message", async message => {
                     reply += `${fvalue}ºF -> ${number.toFixed(1)}ºC\n`;
                 }
             });
-            message.reply(reply);
         }
+
+        let matchC = message.content.match(celsius);
+        if (matchC !== null) {
+            matchC.forEach((value) => {
+                if (value !== null) {
+                    let cvalue = value.replace(strip, '');
+                    let number = parseFloat(cvalue);
+                    number = (number * 9 / 5) + 32;
+                    reply += `${cvalue}ºC -> ${number.toFixed(1)}ºF\n`;
+                }
+            });
+        }
+        // @ts-ignore
+        if (reply !== "") message.lineReply(reply);
         return;
     }
 
@@ -69,12 +87,14 @@ client.on("message", async message => {
     // Checks if the command is for staff use
     if (command.admin) {
         if (!message.member.roles.cache.find(r => r.name === "Moderators")) {
-            message.channel.send(`I'm sorry ${message.author}, I'm afraid I can't do that\nYou don't have the necessary role.`);
+            // @ts-ignore
+            message.lineReply(`I'm sorry, I'm afraid I can't do that. You don't have the necessary role.`);
         }
     }
     // Checks if the command is meant to be used only in servers
     if (command.guildOnly && message.channel.type === "dm") {
-        return message.reply("I can't execute that command inside DMs!");
+        // @ts-ignore
+        return message.lineReply("I can't execute that command inside DMs!");
     }
     // Checks if the command needs arguments
     if (command.args && !args.length) {
@@ -84,7 +104,8 @@ client.on("message", async message => {
             reply += `\nThe proper usage would be: \`${prefix}${commandName} ${command.usage}\``;
         }
 
-        return message.reply(reply);
+        // @ts-ignore
+        return message.lineReply(reply);
     }
     // Cooldown
     if (!cooldowns.has(command.name)) {
@@ -100,7 +121,8 @@ client.on("message", async message => {
 
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
-            return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+            // @ts-ignore
+            return message.lineReply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
         }
     }
 
@@ -111,6 +133,7 @@ client.on("message", async message => {
         command.execute(message, args, commandName);
     } catch (error) {
         console.error(error);
-        message.reply(`I tried so hard... but in the end... I couldn't do what you asked.`);
+        // @ts-ignore
+        message.lineReply(`I tried so hard... but in the end... I couldn't do what you asked.`);
     }
 });

@@ -41,16 +41,16 @@ client.on("message", async message => {
     if (message.author.bot) return;
 
     if (!message.content.startsWith(prefix)) {
-        let fahrenheit = /([+-]?\d+(\.\d+)*)\s?[°º]?([Ff])[^a-zA-Z0-9]/g;
-        let celsius = /([+-]?\d+(\.\d+)*)\s?[°º]?([Cc])[^a-zA-Z0-9]/g;
+        let fahrenheit = /[^a-zA-Z0-9]([+-]?\d+(\.\d+)*)\s?[°º]?([Ff])[^a-zA-Z0-9]/g;
+        let celsius = /[^a-zA-Z0-9]([+-]?\d+(\.\d+)*)\s?[°º]?([Cc])[^a-zA-Z0-9]/g;
         let strip = /[^0-9+-]+/g;
         let reply = "";
-        message.content += ".";
+        message.content = `.${message.content}.`;
 
         let matchF = message.content.match(fahrenheit);
-        if (matchF !== null) {
+        if (matchF) {
             matchF.forEach((value) => {
-                if (value !== null) {
+                if (value) {
                     let fvalue = value.replace(strip, '');
                     let number = parseFloat(fvalue);
                     number = (number - 32) * 5 / 9;
@@ -60,9 +60,9 @@ client.on("message", async message => {
         }
 
         let matchC = message.content.match(celsius);
-        if (matchC !== null) {
+        if (matchC) {
             matchC.forEach((value) => {
-                if (value !== null) {
+                if (value) {
                     let cvalue = value.replace(strip, '');
                     let number = parseFloat(cvalue);
                     number = (number * 9 / 5) + 32;

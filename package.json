@@ -15,5 +15,8 @@
   },
   "devDependencies": {
     "eslint": "^7.15.0"
+  },
+  "scripts": {
+    "start": "node watcher.js"
   }
 }

@@ -1,11 +1,11 @@
 module.exports = {
-    name: 'prune',
+    name: "prune",
     args: true,
     guildOnly: true,
-    description: 'Deletes messages',
-    usage: '<1-99>',
+    description: "Deletes messages",
+    usage: "<1-99>",
     admin: true,
-    tag: 'Admin',
+    tag: "Admin",
     execute(message, args) {
         const amount = parseInt(args[0]) + 1;
 

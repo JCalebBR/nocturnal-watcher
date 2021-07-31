@@ -1,11 +1,11 @@
-const { gifs } = require('../config.json');
+const { gifs } = require("../config.json");
 module.exports = {
-    name: 'anime',
+    name: "anime",
     args: false,
     guildOnly: true,
-    description: 'Nani?',
-    usage: '',
-    tag: 'Fun',
+    description: "Nani?",
+    usage: "",
+    tag: "Fun",
     execute(message) {
         const embed = {
             color: 0x0099ff,

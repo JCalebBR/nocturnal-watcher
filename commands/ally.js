@@ -1,12 +1,12 @@
-const { gifs } = require('../config.json');
+const { gifs } = require("../config.json");
 module.exports = {
-    name: 'ally',
-    aliases: ['allysha', 'bish'],
+    name: "ally",
+    aliases: ["allysha", "bish"],
     args: false,
     guildOnly: true,
-    description: 'DJ Roomba!',
-    usage: '',
-    tag: 'Fun',
+    description: "DJ Roomba!",
+    usage: "",
+    tag: "Fun",
     execute(message) {
         const embed = {
             color: 0x0099ff,

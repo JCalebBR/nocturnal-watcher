@@ -1,0 +1,44 @@
+{
+    "prefix": "nw!",
+    "token": "",
+    "apikeys": {
+        "catapi": "",
+        "dogapi": ""
+    },
+    "pngs": {
+        "hal": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/HAL9000.svg/1200px-HAL9000.svg.png",
+        "watcher": {
+            "avatar": "https://cdn.discordapp.com/avatars/415958373939413013/0f57e1c378611df1edd6bb51f9b89f83.webp"
+        },
+        "trapt": [
+            "https://i.redd.it/i4b62duyrbq41.jpg",
+            "https://lh3.googleusercontent.com/proxy/CbwX9E8d3R-PMIKukFQIu5w75c4DYFT5xR1KLTHm7OSWxPb0arUv7OMa24NAyAdnW234gdN2sHr--JF_Y30GsxmxHWyQXVxFjlXMgnbK8rIQxuvGsjhKWXg9xcrxQv4ksWvz6nxpWrCsJ1NuvO3Y6j3FAa9FZMmFdhw",
+            "https://ahseeit.com/united-states/king-include/uploads/2020/12/108806847_306564333870762_102802904262076702_n-8970528202.jpg",
+            "https://townsquare.media/site/366/files/2020/03/crapt.jpg",
+            "https://images-cdn.9gag.com/photo/amvXV8d_700b.jpg",
+            "https://i2.wp.com/hillreporter.com/wp-content/uploads/2020/12/unnamed-37.jpg?fit=828%2C929&ssl=1"
+        ]
+    },
+    "gifs": {
+        "ally": {
+            "message": "The one and only, **DJ ROOMBA**",
+            "url": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6df305b4-4496-4cd8-b687-fb61fff3aa2f/d7559t0-0d289e29-4fcf-4e47-86e4-63f7e5f8f609.jpg/v1/fill/w_1024,h_1583,q_75,strp/dj_roomba_by_flich_d7559t0-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNmRmMzA1YjQtNDQ5Ni00Y2Q4LWI2ODctZmI2MWZmZjNhYTJmXC9kNzU1OXQwLTBkMjg5ZTI5LTRmY2YtNGU0Ny04NmU0LTYzZjdlNWY4ZjYwOS5qcGciLCJoZWlnaHQiOiI8PTE1ODMiLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS53YXRlcm1hcmsiXSwid21rIjp7InBhdGgiOiJcL3dtXC82ZGYzMDViNC00NDk2LTRjZDgtYjY4Ny1mYjYxZmZmM2FhMmZcL2ZsaWNoLTQucG5nIiwib3BhY2l0eSI6OTUsInByb3BvcnRpb25zIjowLjQ1LCJncmF2aXR5IjoiY2VudGVyIn19.9BoShBukCM9SDUwefyDgROXX_MofC4mVd08uCQRB2HE"
+        },
+        "anime": {
+            "message": "Did you say anime thighs?",
+            "url": "https://cdn.discordapp.com/attachments/785894577164255232/787433205334540318/nik_goes_for_bass.gif"
+        },
+        "ban": {
+            "message": "been banned!",
+            "url": "https://media1.tenor.com/images/b5bdca61b28524e045d3aa3c124651ea/tenor.gif"
+        },
+        "cancel": {
+            "message": "been canceled! They have joined the cancelcore group",
+            "url": "https://media1.tenor.com/images/defaced389aa7815c39752cddf048d9a/tenor.gif"
+        },
+        "bonk": {
+            "message": "been bonked!",
+            "url": "https://media1.tenor.com/images/6493bee2be7ae168a5ef7a68cf751868/tenor.gif"
+        }
+    }
+}

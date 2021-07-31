@@ -1,35 +1,35 @@
-const fetch = require('node-fetch');
+const fetch = require("node-fetch");
 module.exports = {
-    name: 'picture',
-    aliases: ['randompic', 'pic'],
+    name: "picture",
+    aliases: ["randompic", "pic"],
     args: false,
     guildOnly: true,
     cooldown: 5,
-    description: 'Returns a random picture, according to input',
-    usage: '<width> <height> | <resolution> for square images',
-    tag: 'Random',
+    description: "Returns a random picture, according to input",
+    usage: "<width> <height> | <resolution> for square images",
+    tag: "Random",
     async execute(message, args) {
         if (args.length > 2) {
-            message.reply('Please provide up to 2 arguments (width x height)');
+            message.reply("Please provide up to 2 arguments (width x height)");
             return;
         } else if (args[0] > 5000 || args[1] > 5000) {
-            message.reply('Please provide a valid size ranging from 1 to 5000 px');
+            message.reply("Please provide a valid size ranging from 1 to 5000 px");
             return;
         }
 
         let title;
-        let url = 'https://picsum.photos/';
+        let url = "https://picsum.photos/";
 
         if (args.length > 1) {
-            url += args.join('/');
-            title = args.join('x');
+            url += args.join("/");
+            title = args.join("x");
         }
         else if (!args.length) {
             url += "0/0";
             title = "random sized";
         }
         else {
-            url += args.join('/');
+            url += args.join("/");
             title = `${args[0]}x${args[0]}`;
         }
 
@@ -37,7 +37,7 @@ module.exports = {
             color: 0x0099ff,
             title: `Here's your ${title} picture:`,
             image: {
-                url: ''
+                url: ""
             },
             footer: {
                 text: "picture provided by picsum.photos, thanks buddies!"

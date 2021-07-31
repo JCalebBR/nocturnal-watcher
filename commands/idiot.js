@@ -1,14 +1,14 @@
-const { pngs } = require('../config.json');
+const { pngs } = require("../config.json");
 
 module.exports = {
-    name: 'idiot',
-    aliases: ['trapt'],
+    name: "idiot",
+    aliases: ["trapt"],
     args: false,
     guildOnly: true,
     cooldown: 0,
-    description: 'Returns a random trapt meme.',
-    usage: '',
-    tag: 'Fun',
+    description: "Returns a random trapt meme.",
+    usage: "",
+    tag: "Fun",
     execute(message) {
         const item = Math.floor(Math.random() * pngs.trapt.length);
         const embed = {

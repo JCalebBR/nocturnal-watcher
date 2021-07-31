@@ -1,15 +1,15 @@
-const Discord = require('discord.js');
-const { prefix, pngs } = require('../config.json');
+const Discord = require("discord.js");
+const { prefix, pngs } = require("../config.json");
 
 module.exports = {
-    name: 'help',
-    aliases: ['h', 'commands'],
+    name: "help",
+    aliases: ["h", "commands"],
     args: false,
     guildOnly: false,
     cooldown: 0,
-    description: 'List all of my commands or info about a specific command.',
-    usage: '<command name>',
-    tag: 'Help',
+    description: "List all of my commands or info about a specific command.",
+    usage: "<command name>",
+    tag: "Help",
     execute(message, args) {
         const { commands } = message.client;
 
@@ -56,7 +56,7 @@ module.exports = {
                 footer: { text: `${prefix}${command.name} | Help` }
             };
 
-            embed.fields.push({ name: `Aliases:`, value: `${command.aliases.join(', ') || "No aliases"}` });
+            embed.fields.push({ name: `Aliases:`, value: `${command.aliases.join(", ") || "No aliases"}` });
 
             embed.fields.push({ name: `Description:`, value: `${command.description || "No description"}` });
 

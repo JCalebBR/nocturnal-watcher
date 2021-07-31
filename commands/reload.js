@@ -1,13 +1,13 @@
 module.exports = {
-    name: 'reload',
-    aliases: ['r', 'update', 'u'],
+    name: "reload",
+    aliases: ["r", "update", "u"],
     args: true,
     guildOnly: false,
     cooldown: 0,
-    description: 'Reloads a command',
-    usage: '<command>',
+    description: "Reloads a command",
+    usage: "<command>",
     admin: true,
-    tag: 'Admin',
+    tag: "Admin",
     execute(message, args) {
         args.forEach(commandName => {
             commandName = commandName.toLowerCase();

@@ -1,15 +1,14 @@
-const fetch = require('node-fetch');
-const { Menu } = require('discord.js-menu');
-const { MessageEmbed } = require('discord.js');
+const fetch = require("node-fetch");
+
 module.exports = {
-    name: 'quote',
-    aliases: ['q'],
+    name: "quote",
+    aliases: ["q"],
     args: false,
     guildOnly: true,
     cooldown: 5,
-    description: 'Returns quotes from twitch',
-    usage: '<number>',
-    tag: 'Twitch',
+    description: "Returns quotes from twitch",
+    usage: "<number>",
+    tag: "Twitch",
     async execute(message, args) {
         let url = "https://twitch.center/customapi/quote/list?token=03946e91";
         let embed = {
@@ -22,7 +21,7 @@ module.exports = {
         let body = await fetch(url)
             .then(res => res.text())
             .then(body => {
-                body = body.split('\n');
+                body = body.split("\n");
                 return body;
             }).catch(error => {
                 message.lineReply(error.message);

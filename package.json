@@ -1,11 +1,15 @@
 {
   "dependencies": {
+    "@keyv/mongo": "^1.1.0",
     "discord-auditlog": "^2.2.3",
     "discord-reply": "^0.1.2",
     "discord.js": "^12.5.1",
     "discord.js-menu": "^2.3.0",
     "erlpack": "github:discord/erlpack",
+    "keyv": "^4.0.3",
+    "luxon": "^2.0.1",
     "node-fetch": "^2.6.1",
+    "openweather-apis": "^4.4.1",
     "optionator": "^0.9.1",
     "spotify-web-api-node": "^5.0.2"
   },

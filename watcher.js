@@ -96,6 +96,10 @@ client.on("message", async message => {
         // @ts-ignore
         return message.lineReply("I can't execute that command inside DMs!");
     }
+    if (command.dmOnly && message.channel.type !== "dm") {
+        // @ts-ignore
+        return message.lineReply("I can't execute that command outside DMs!");
+    }
     // Checks if the command needs arguments
     if (command.args && !args.length) {
         let reply = "You didn't provide any arguments!";
@@ -128,12 +132,15 @@ client.on("message", async message => {
 
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-
     try {
-        command.execute(message, args, commandName);
+        message.channel.startTyping();
+        command.execute(message, args, commandName).catch(error => {
+            console.error(error);
+            // @ts-ignore
+            message.lineReply(`I tried so hard... but in the end... I couldn't do what you asked.`);
+        }).then(message.channel.stopTyping(true));
     } catch (error) {
-        console.error(error);
-        // @ts-ignore
-        message.lineReply(`I tried so hard... but in the end... I couldn't do what you asked.`);
+        if (error instanceof TypeError) { }
+        else { console.log(error); }
     }
 });

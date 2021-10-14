@@ -1,13 +1,22 @@
+const Logging = require("./util/log.js");
+const Log = new Logging();
 const fs = require("fs");
 
 const Discord = require("discord.js");
 const { token, prefix } = require("./config.json");
-// @ts-ignore
-require('discord-reply');
-const client = new Discord.Client();
+
+const botIntents = new Discord.Intents();
+botIntents.add(
+    Discord.Intents.FLAGS.DIRECT_MESSAGES,
+    Discord.Intents.FLAGS.DIRECT_MESSAGE_TYPING,
+    Discord.Intents.FLAGS.GUILDS,
+    Discord.Intents.FLAGS.GUILD_MEMBERS,
+    Discord.Intents.FLAGS.GUILD_MESSAGES,
+    Discord.Intents.FLAGS.GUILD_MESSAGE_TYPING);
+
+const client = new Discord.Client({ intents: botIntents });
 const path = require("path");
-// @ts-ignore
-const { match } = require("assert");
+
 const dirPath = path.resolve(__dirname, "./commands");
 
 client.commands = new Discord.Collection();
@@ -24,19 +33,17 @@ for (const file of commandFiles) {
 const cooldowns = new Discord.Collection();
 
 // Ready
-client.once("ready", () => {
-    console.log("Ready!");
+client.once("ready", async () => {
+    Log.log("Ready!");
     // Activity
-    client.user.setActivity("the memeland", { type: "WATCHING" })
-        .then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
-        .catch(console.error);
+    client.user.setPresence({ activities: [{ name: "the memeland", type: "WATCHING" }], status: "online" });
 });
 
 // Login using token
 client.login(token);
 
 // Commands
-client.on("message", async message => {
+client.on("messageCreate", async message => {
     // Checks if message starts with a prefix or if it"s not from another bot
     if (message.author.bot) return;
 
@@ -70,8 +77,8 @@ client.on("message", async message => {
                 }
             });
         }
-        // @ts-ignore
-        if (reply !== "") message.lineReply(reply);
+
+        if (reply !== "") message.reply(reply);
         return;
     }
 
@@ -83,33 +90,38 @@ client.on("message", async message => {
     const command = client.commands.get(commandName)
         || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     // If no command found, exit
-    if (!command) return;
+    if (!command) {
+        Log.error(`${message.author} tried to use the command "${command}" which doesn't appear to exist!`);
+        return;
+    }
     // Checks if the command is for staff use
     if (command.admin) {
         if (!message.member.roles.cache.find(r => r.name === "Moderators")) {
-            // @ts-ignore
-            message.lineReply(`I'm sorry, I'm afraid I can't do that. You don't have the necessary role.`);
+            Log.warn(`${message.author} tried to use the staff command "${command}"!`);
+            message.channel.send(`I'm sorry ${message.author}, I'm afraid I can't do that\nYou don't have the necessary role.`);
         }
     }
     // Checks if the command is meant to be used only in servers
-    if (command.guildOnly && message.channel.type === "dm") {
-        // @ts-ignore
-        return message.lineReply("I can't execute that command inside DMs!");
+    if (command.guildOnly && message.channel.type === "DM") {
+        Log.warn(`${message.author} tried to use the command "${command}" inside of DMs, but the command is guildOnly`);
+        message.reply("I can\'t execute that command inside DMs!");
+        return;
     }
-    if (command.dmOnly && message.channel.type !== "dm") {
-        // @ts-ignore
-        return message.lineReply("I can't execute that command outside DMs!");
+    if (command.dmOnly && message.channel.type !== "DM") {
+        Log.warn(`${message.author} tried to use the command "${command}" outside of DMs, but the command is dmOnly`);
+        message.reply("I can't execute that command outside DMs!");
+        return;
     }
     // Checks if the command needs arguments
     if (command.args && !args.length) {
-        let reply = "You didn't provide any arguments!";
+        let reply = `You didn't provide any arguments!`;
         // If it has a usage guide, send it
         if (command.usage) {
             reply += `\nThe proper usage would be: \`${prefix}${commandName} ${command.usage}\``;
         }
-
-        // @ts-ignore
-        return message.lineReply(reply);
+        Log.error(`${message.author} tried to use the command "${command}" without arguments!`);
+        message.reply(reply);
+        return;
     }
     // Cooldown
     if (!cooldowns.has(command.name)) {
@@ -125,22 +137,22 @@ client.on("message", async message => {
 
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
-            // @ts-ignore
-            return message.lineReply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+            Log.debug(`${message.author} tried to use the command "${command}" while it was on cooldown!`);
+            message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+            return;
         }
     }
 
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     try {
-        message.channel.startTyping();
-        command.execute(message, args, commandName).catch(error => {
-            console.error(error);
-            // @ts-ignore
-            message.lineReply(`I tried so hard... but in the end... I couldn't do what you asked.`);
-        }).then(message.channel.stopTyping(true));
+        message.channel.sendTyping();
+        command.execute(message, args, Log);
     } catch (error) {
         if (error instanceof TypeError) { }
-        else { console.log(error); }
+        else {
+            Log.log(error);
+            message.reply(`I tried so hard... but in the end... I couldn't do what you asked.`);
+        }
     }
 });

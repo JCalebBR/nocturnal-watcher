@@ -25,11 +25,11 @@ module.exports = {
 
             if (mentions.includes("Caleb")) {
                 embed.title = `I'm sorry, I can't ${command} ${mentions[mentions.indexOf("Caleb")]}, he is like a father to me`;
-                return message.lineReply({ embed: embed });
+                return message.reply({ embeds: [embed] });
             } else if (mentions.includes("Nocturnal Watcher")) {
-                embed.title = `I'm sorry, I'm afraid I can"t do that.`;
+                embed.title = `I'm sorry, I'm afraid I can't do that.`;
                 embed.image.url = `${pngs.hal}`;
-                return message.lineReply({ embed: embed });
+                return message.reply({ embeds: [embed] });
             } else {
                 embed.title = mentions.join(", ");
                 if (message.mentions.users.size > 1) embed.title += " have ";
@@ -42,7 +42,7 @@ module.exports = {
         }
         embed.image.url += gifs[`${command}`].url;
         embed.title += gifs[`${command}`].message;
-        message.lineReply({ embed: embed });
+        message.reply({ embeds: [embed] });
     }
 };
 

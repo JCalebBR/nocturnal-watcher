@@ -1,4 +1,3 @@
-const Discord = require("discord.js");
 const { prefix, pngs } = require("../config.json");
 
 module.exports = {
@@ -37,13 +36,13 @@ module.exports = {
                     if (command.tag === field.name) field.value += command.name + " ";
                 });
             });
-            return message.lineReply({ embed: embed });
+            return message.reply({ embeds: [embed] });
         } else {
             const name = args[0].toLowerCase();
             const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
             if (!command) {
-                return message.lineReply(`That command does not exist!`);
+                return message.reply(`That command does not exist!`);
             }
             let embed = {
                 color: 0x0099ff,
@@ -68,7 +67,7 @@ module.exports = {
 
             if (command.admin) embed.fields.push({ name: `Admin:`, value: `${command.admin}`, inline: true });
 
-            message.lineReply({ embed: embed });
+            message.reply({ embeds: [embed] });
         }
     }
 };

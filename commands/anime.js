@@ -17,7 +17,7 @@ module.exports = {
                 text: "meme brought to you by Caleb#5104"
             }
         };
-        message.lineReply({ embed: embed });
+        message.reply({ embeds: [embed] });
     }
 };
 

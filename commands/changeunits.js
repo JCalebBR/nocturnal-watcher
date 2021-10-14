@@ -10,9 +10,9 @@ module.exports = {
     description: "Will toggle between metric or imperial units for the weather command.",
     usage: "",
     tag: "Weather",
-    async execute(message) {
+    async execute(message, args, Log) {
         const keyv = new Keyv(`${apikeys.mongodb}`);
-        keyv.on('error', err => console.error('Keyv connection error:', err));
+        keyv.on('error', err => Log.error('Keyv connection error:', err));
 
         await keyv.get(`${message.author.id}`)
             .then(async data => {
@@ -20,7 +20,7 @@ module.exports = {
                 else { data.units = "metric"; }
 
                 await keyv.set(`${message.author.id}`, data, 2592000000)
-                    .then(message.lineReply(`Your location is set as \`${data.location}\` and your units are \`${data.units}\``));
+                    .then(message.reply(`Your location is set as \`${data.location}\` and your units are \`${data.units}\``));
             });
     }
 };

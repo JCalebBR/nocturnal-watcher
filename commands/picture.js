@@ -7,7 +7,7 @@ module.exports = {
     cooldown: 5,
     description: "Returns a random picture, according to input",
     usage: "<width> <height> | <resolution> for square images",
-    tag: "Random",
+    tag: "Fun",
     async execute(message, args) {
         if (args.length > 2) {
             message.reply("Please provide up to 2 arguments (width x height)");
@@ -46,9 +46,9 @@ module.exports = {
         // @ts-ignore
         await fetch(url).then(response => {
             embed.image.url = response.url;
-            message.lineReply({ embed: embed });
+            message.reply({ embeds: [embed] });
         }).catch(error => {
-            message.lineReply(error.message);
+            message.reply(error.message);
         });
     }
 };

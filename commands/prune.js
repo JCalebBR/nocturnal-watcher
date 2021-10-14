@@ -6,14 +6,13 @@ module.exports = {
     usage: "<1-99>",
     admin: true,
     tag: "Admin",
-    execute(message, args) {
+    execute(message, args, Log) {
         const amount = parseInt(args[0]) + 1;
 
         if (isNaN(amount) || (amount <= 1 || amount > 100)) return;
         // @ts-ignore
         message.channel.bulkDelete(amount, true).catch(error => {
-            console.log(error);
-            message.lineReply(`I tried so hard... but in the end... I couldn't do what you asked.`);
+            Log.log(error);
         });
     }
 };

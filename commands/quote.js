@@ -24,7 +24,7 @@ module.exports = {
                 body = body.split("\n");
                 return body;
             }).catch(error => {
-                message.lineReply(error.message);
+                message.reply(error.message);
             });
         let index;
         if (!args.length) index = Math.floor(Math.random() * body.length);
@@ -38,6 +38,6 @@ module.exports = {
         }
         else index = args[0] - 1;
         embed.title = body[index];
-        message.lineReply({ embed: embed });
+        message.reply({ embeds: [embed] });
     }
 };

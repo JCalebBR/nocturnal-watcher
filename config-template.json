@@ -3,7 +3,9 @@
     "token": "",
     "apikeys": {
         "catapi": "",
-        "dogapi": ""
+        "dogapi": "",
+        "openweather": "",
+        "mongodb": ""
     },
     "pngs": {
         "hal": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/HAL9000.svg/1200px-HAL9000.svg.png",

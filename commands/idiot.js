@@ -21,6 +21,6 @@ module.exports = {
                 text: "\nmeme brought to you by Caleb#5104, acquired from images.google.com"
             }
         };
-        message.lineReply({ embed: embed });
+        message.reply({ embeds: [embed] });
     }
 };

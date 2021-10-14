@@ -9,8 +9,8 @@ module.exports = {
     cooldown: 5,
     description: "Gets a random cat picture from thecatapi.com",
     usage: "",
-    tag: "Random",
-    async execute(message) {
+    tag: "Fun",
+    async execute(message, args, Log) {
         const fetch = require("node-fetch");
         const url = `https://api.thecatapi.com/v1/images/search?`;
         // @ts-ignore
@@ -20,7 +20,7 @@ module.exports = {
             "size": "small",
             "limit": 1
         });
-        // @ts-ignore
+
         await fetch(url + params)
             .then(response => response.json())
             .then(json => {
@@ -41,9 +41,9 @@ module.exports = {
                     )
                     .setFooter(`Image provided by thecatapi.com, thanks buddies!`);
 
-                message.lineReply(embed);
+                message.reply({ embeds: [embed] });
             }).catch(error => {
-                message.lineReply(error.message);
+                message.reply(error.message);
             });
     }
 };

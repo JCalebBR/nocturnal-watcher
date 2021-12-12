@@ -10,7 +10,7 @@ module.exports = {
     description: "Gets a random cat picture from thecatapi.com",
     usage: "",
     tag: "Fun",
-    async execute(message, args, Log) {
+    async execute(message, args, command, Log) {
         const fetch = require("node-fetch");
         const url = `https://api.thecatapi.com/v1/images/search?`;
         // @ts-ignore

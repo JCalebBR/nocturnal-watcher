@@ -6,7 +6,7 @@ module.exports = {
     usage: "<1-99>",
     admin: true,
     tag: "Admin",
-    execute(message, args, Log) {
+    execute(message, args, command, Log) {
         const amount = parseInt(args[0]) + 1;
 
         if (isNaN(amount) || (amount <= 1 || amount > 100)) return;

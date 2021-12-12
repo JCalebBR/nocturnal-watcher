@@ -6,7 +6,7 @@ module.exports = {
     description: "Nani?",
     usage: "",
     tag: "Fun",
-    execute(message) {
+    execute(message, args, command, Log) {
         const embed = {
             color: 0x0099ff,
             title: gifs.anime.message,

@@ -9,7 +9,7 @@ module.exports = {
     description: "List all of my commands or info about a specific command.",
     usage: "<command name>",
     tag: "Help",
-    execute(message, args) {
+    execute(message, args, command, Log) {
         const { commands } = message.client;
 
         if (!args.length) {

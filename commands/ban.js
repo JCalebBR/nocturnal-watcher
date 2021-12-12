@@ -7,7 +7,7 @@ module.exports = {
     description: "Bans, cancels or bonks people!",
     usage: "<@user(s)> | <text>",
     tag: "Fun",
-    execute(message, args, command) {
+    execute(message, args, command, Log) {
         let mentions = [];
         let embed = {
             color: 0x0099ff,

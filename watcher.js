@@ -147,7 +147,7 @@ client.on("messageCreate", async message => {
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
     try {
         message.channel.sendTyping();
-        command.execute(message, args, Log);
+        command.execute(message, args, commandName, Log);
     } catch (error) {
         if (error instanceof TypeError) { }
         else {

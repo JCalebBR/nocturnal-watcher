@@ -8,7 +8,7 @@ module.exports = {
     usage: "<command>",
     admin: true,
     tag: "Admin",
-    execute(message, args, Log) {
+    execute(message, args, command, Log) {
         args.forEach(commandName => {
             commandName = commandName.toLowerCase();
             let command = message.client.commands.get(commandName)

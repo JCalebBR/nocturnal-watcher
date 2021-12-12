@@ -8,7 +8,7 @@ module.exports = {
     description: "Returns a random picture, according to input",
     usage: "<width> <height> | <resolution> for square images",
     tag: "Fun",
-    async execute(message, args) {
+    async execute(message, args, command, Log) {
         if (args.length > 2) {
             message.reply("Please provide up to 2 arguments (width x height)");
             return;

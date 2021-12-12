@@ -9,7 +9,7 @@ module.exports = {
     description: "Returns quotes from twitch",
     usage: "<number>",
     tag: "Twitch",
-    async execute(message, args) {
+    async execute(message, args, command, Log) {
         let url = "https://twitch.center/customapi/quote/list?token=03946e91";
         let embed = {
             color: 0x0099ff,

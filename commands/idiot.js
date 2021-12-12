@@ -9,7 +9,7 @@ module.exports = {
     description: "Returns a random trapt meme.",
     usage: "",
     tag: "Fun",
-    execute(message) {
+    execute(message, args, command, Log) {
         const item = Math.floor(Math.random() * pngs.trapt.length);
         const embed = {
             color: 0x0099ff,

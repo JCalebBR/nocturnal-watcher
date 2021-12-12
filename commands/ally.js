@@ -7,7 +7,7 @@ module.exports = {
     description: "DJ Roomba!",
     usage: "",
     tag: "Fun",
-    execute(message) {
+    execute(message, args, command, Log) {
         const embed = {
             color: 0x0099ff,
             title: gifs.ally.message,

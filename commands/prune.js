@@ -12,7 +12,7 @@ module.exports = {
         if (isNaN(amount) || (amount <= 1 || amount > 100)) return;
         // @ts-ignore
         message.channel.bulkDelete(amount, true).catch(error => {
-            Log.log(error);
+            Log.error(`${message.guildId} | ${error}`);
         });
     }
 };

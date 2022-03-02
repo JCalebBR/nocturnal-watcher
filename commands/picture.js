@@ -23,12 +23,10 @@ module.exports = {
         if (args.length > 1) {
             url += args.join("/");
             title = args.join("x");
-        }
-        else if (!args.length) {
+        } else if (!args.length) {
             url += "0/0";
             title = "random sized";
-        }
-        else {
+        } else {
             url += args.join("/");
             title = `${args[0]}x${args[0]}`;
         }

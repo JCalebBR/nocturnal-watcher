@@ -36,7 +36,7 @@ const cooldowns = new Discord.Collection();
 client.once("ready", async () => {
     Log.log("Ready!");
     // Activity
-    client.user.setPresence({ activities: [{ name: "the memeland", type: "WATCHING" }], status: "online" });
+    client.user.setPresence({ activities: [{ name: "the nocturnal communities", type: "WATCHING" }], status: "online" });
 });
 
 // Login using token
@@ -47,7 +47,7 @@ client.on("messageCreate", async message => {
     // Checks if message starts with a prefix or if it"s not from another bot
     if (message.author.bot) return;
 
-    if (!message.content.startsWith(prefix)) {
+    if (!message.content.startsWith(prefix) && !message.content.startsWith("http")) {
         let fahrenheit = /[^a-zA-Z0-9]([+-]?\d+(\.\d+)*)\s?[°º]?([Ff])[^a-zA-Z0-9]/g;
         let celsius = /[^a-zA-Z0-9]([+-]?\d+(\.\d+)*)\s?[°º]?([Cc])[^a-zA-Z0-9]/g;
         let strip = /[^0-9+-]+/g;
@@ -91,24 +91,24 @@ client.on("messageCreate", async message => {
         || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     // If no command found, exit
     if (!command) {
-        Log.error(`${message.author} tried to use the command "${command}" which doesn't appear to exist!`);
+        Log.error(`${message.guildId} | ${message.author} tried to use the command "${command}" which doesn't appear to exist!`);
         return;
     }
     // Checks if the command is for staff use
     if (command.admin) {
-        if (!message.member.roles.cache.find(r => r.name === "Moderators")) {
-            Log.warn(`${message.author} tried to use the staff command "${command}"!`);
+        if (!message.member.roles.cache.find(r => r.name === "Moderators") && !message.member.roles.cache.find(r => r.name === "Oven Mitts (Mods)")) {
+            Log.warn(`${message.guildId} | ${message.author} tried to use the staff command "${command}"!`);
             message.channel.send(`I'm sorry ${message.author}, I'm afraid I can't do that\nYou don't have the necessary role.`);
         }
     }
     // Checks if the command is meant to be used only in servers
     if (command.guildOnly && message.channel.type === "DM") {
-        Log.warn(`${message.author} tried to use the command "${command}" inside of DMs, but the command is guildOnly`);
+        Log.warn(`${message.guildId} | ${message.author} tried to use the command "${command}" inside of DMs, but the command is guildOnly`);
         message.reply("I can\'t execute that command inside DMs!");
         return;
     }
     if (command.dmOnly && message.channel.type !== "DM") {
-        Log.warn(`${message.author} tried to use the command "${command}" outside of DMs, but the command is dmOnly`);
+        Log.warn(`${message.guildId} | ${message.author} tried to use the command "${command}" outside of DMs, but the command is dmOnly`);
         message.reply("I can't execute that command outside DMs!");
         return;
     }
@@ -119,7 +119,7 @@ client.on("messageCreate", async message => {
         if (command.usage) {
             reply += `\nThe proper usage would be: \`${prefix}${commandName} ${command.usage}\``;
         }
-        Log.error(`${message.author} tried to use the command "${command}" without arguments!`);
+        Log.error(`${message.guildId} | ${message.author} tried to use the command "${command}" without arguments!`);
         message.reply(reply);
         return;
     }
@@ -137,7 +137,7 @@ client.on("messageCreate", async message => {
 
         if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
-            Log.debug(`${message.author} tried to use the command "${command}" while it was on cooldown!`);
+            Log.debug(`${message.guildId} | ${message.author} tried to use the command "${command}" while it was on cooldown!`);
             message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
             return;
         }
@@ -151,7 +151,7 @@ client.on("messageCreate", async message => {
     } catch (error) {
         if (error instanceof TypeError) { }
         else {
-            Log.log(error);
+            Log.error(`${message.guildId} | ${error}`);
             message.reply(`I tried so hard... but in the end... I couldn't do what you asked.`);
         }
     }

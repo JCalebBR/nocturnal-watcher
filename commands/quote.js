@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const { apikeys } = require("../config.json");
 
 module.exports = {
     name: "quote",
@@ -10,7 +11,8 @@ module.exports = {
     usage: "<number>",
     tag: "Twitch",
     async execute(message, args, command, Log) {
-        let url = "https://twitch.center/customapi/quote/list?token=03946e91";
+        const guildId = apikeys.nightbot[message.guildId] ? message.guildId : "default";
+        const url = apikeys.nightbot[guildId].url;
         let embed = {
             color: 0x0099ff,
             footer: {

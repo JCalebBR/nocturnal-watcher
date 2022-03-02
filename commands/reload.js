@@ -23,7 +23,7 @@ module.exports = {
                 message.client.commands.set(newCommand.name, newCommand);
                 message.reply(`Command \`${command.name}\` was reloaded!`);
             } catch (error) {
-                Log.error(error);
+                Log.error(`${message.guildId} | ${error}`);
                 message.reply(`There was an error while reloading a command \`${command.name}\`:\n\`${error.message}\``);
             }
         });

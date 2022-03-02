@@ -8,6 +8,7 @@ module.exports = {
     usage: "<@user(s)> | <text>",
     tag: "Fun",
     execute(message, args, command, Log) {
+        const guildId = gifs[message.guildId] ? message.guildId : "default";
         let mentions = [];
         let embed = {
             color: 0x0099ff,
@@ -40,8 +41,8 @@ module.exports = {
             if (args.length > 1) embed.title += " have ";
             else embed.title += " has ";
         }
-        embed.image.url += gifs[`${command}`].url;
-        embed.title += gifs[`${command}`].message;
+        embed.image.url += gifs[guildId][`${command}`].url;
+        embed.title += gifs[guildId][`${command}`].message;
         message.reply({ embeds: [embed] });
     }
 };

@@ -36,6 +36,7 @@ const cooldowns = new Discord.Collection();
 client.once("ready", async () => {
     Log.log("Ready!");
     // Activity
+    // @ts-ignore
     client.user.setPresence({ activities: [{ name: "the nocturnal communities", type: "WATCHING" }], status: "online" });
 });
 
@@ -85,17 +86,20 @@ client.on("messageCreate", async message => {
     // Split args
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     // Actual command received
+    // @ts-ignore
     const commandName = args.shift().toLowerCase();
     // Check if there isd a command file for the command or if it is an alias
     const command = client.commands.get(commandName)
         || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
     // If no command found, exit
+    if (command == null) return;
     if (!command) {
         Log.error(`${message.guildId} | ${message.author} tried to use the command "${command}" which doesn't appear to exist!`);
         return;
     }
     // Checks if the command is for staff use
     if (command.admin) {
+        // @ts-ignore
         if (!message.member.roles.cache.find(r => r.name === "Moderators") && !message.member.roles.cache.find(r => r.name === "Oven Mitts (Mods)")) {
             Log.warn(`${message.guildId} | ${message.author} tried to use the staff command "${command}"!`);
             message.channel.send(`I'm sorry ${message.author}, I'm afraid I can't do that\nYou don't have the necessary role.`);

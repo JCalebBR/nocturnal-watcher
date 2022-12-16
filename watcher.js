@@ -51,7 +51,7 @@ client.on("messageCreate", async message => {
     if (!message.content.startsWith(prefix) && !message.content.startsWith("http")) {
         let fahrenheit = /[^a-zA-Z0-9]([+-]?\d+(\.\d+)*)\s?[°º]?([Ff])[^a-zA-Z0-9]/g;
         let celsius = /[^a-zA-Z0-9]([+-]?\d+(\.\d+)*)\s?[°º]?([Cc])[^a-zA-Z0-9]/g;
-        let strip = /[^0-9+-]+/g;
+        let strip = /([^0-9+-.]|[,])+/g;
         let reply = "";
         message.content = `.${message.content}.`;
 
